@@ -14,25 +14,36 @@
  */
 
 #include <iostream>
+#include <cassert>
 
 int main();
 
 // Helper Function
-void displayBinary( unsigned int value);
+char *displayBinary( unsigned int value);
 
 // Bit Rotations
 unsigned int leftRotate( unsigned int value, std::size_t n );
 unsigned int rightRotate( unsigned int vlaue, std::size_t n );
 
-int main() {
+char *displayBinary( unsigned int value ) {
+    char *output{ new char[32]{} };
 
-    return 0;
+    unsigned int k{1};
+    k <<= 31;
+
+    std::size_t n{0};
+    for(; k > 0; k >>= 1 ) {
+        if(value & k) {
+            output[n] = '1';
+        } else {
+            output[n] = '0';
+        }
+        n++;
+    }
+    
+    return output;
 }
 
-void displayBinary( unsigned int value ) {
-
-    return;
-}
 
 unsigned int leftRotate( unsigned int value, std::size_t n ) {
 
