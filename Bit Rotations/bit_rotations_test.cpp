@@ -9,6 +9,7 @@
 #include "bit_rotations.cpp"
 
 int main();
+void printBinary( unsigned int value );
 void testDisplayBinary();
 void testLeftRotate();
 void testRightRotate();
@@ -16,7 +17,24 @@ void testRightRotate();
 int main() {
     testDisplayBinary();
     std::cout << "All displayBinary tests passed!" << std::endl;
+
+    testLeftRotate();
+    std::cout << "All leftRotate tests passed!" << std::endl;
+
+    testRightRotate();
+    std::cout << "All rightRotate tests passed!" << std::endl;
     return 0;
+}
+
+void printBinary( unsigned int value ) {
+    char *output = displayBinary( value );
+    for( std::size_t i{0}; i < 32; ++i ) {
+        std::cout << output[i];
+    }
+    std::cout << std::endl;
+
+    delete output;
+    output = nullptr;
 }
 
 void testDisplayBinary() {
@@ -623,9 +641,52 @@ void testDisplayBinary() {
 }
 
 void testLeftRotate() {
+    unsigned int test = 0x00000000U;
+    assert( leftRotate( test, 0 ) == 0x00000000U );
+    assert( leftRotate( test, 31 ) == 0x00000000U );
+    assert( leftRotate( test, 10 ) == 0x00000000U );
 
+    test = 0x00000001U;
+    assert( leftRotate( test, 1 ) == 0x00000002U );
+    assert( leftRotate( test, 10 ) == 0x00000400U );
+    assert( leftRotate( test, 32 ) == 0x00000001U );
+
+    test = 0x1234ABEDU;
+    assert( leftRotate( test, 2 ) == 0x48D2AFB4U );
+    assert( leftRotate( test, 19 ) == 0x5F6891A5U );
+    assert( leftRotate( test, 123) == 0x6891A55FU );
+    assert( leftRotate( test, 5) == 0x46957DA2U );
+    assert( leftRotate( test, 10 ) == 0xD2AFB448U );
+
+    test = 0xFF00000FU;
+    assert( leftRotate( test, 10 ) == 0x00003FFCU );
+    assert( leftRotate( test, 4 ) == 0xF00000FFU );
+    assert( leftRotate( test, 2) == 0xFC00003FU );
 }
 
-void testRightrotate() {
-    
+void testRightRotate() {
+    unsigned int test = 0x00000001U;
+    assert( rightRotate( test, 1 ) == 0x80000000U );
+    assert( rightRotate( test, 10) == 0x400000U );
+    assert( rightRotate( test, 32) == 0x1U );
+    assert( rightRotate( test, 19 ) == 0x2000U );
+
+    test = 0xF00F0000U;
+    assert( rightRotate( test, 1 ) == 0x78078000U );
+    assert( rightRotate( test, 4 ) == 0xF00F000U );
+    assert( rightRotate( test, 10 ) == 0x3C03C0U );
+    assert( rightRotate( test, 33 ) == 0x78078000U );
+
+
+    test = 0x123BEAD5U;
+    assert( rightRotate( test, 0 ) == 0x123BEAD5U );
+    assert( rightRotate( test, 12 ) == 0xAD5123BEU );
+    assert( rightRotate( test, 90 ) == 0x8EFAB544U );
+    assert( rightRotate( test, 23 ) == 0x77D5AA24U );
+
+    test = 0x13456789U;
+    assert( rightRotate( test, 1 ) == 0x89A2B3C4U );
+    assert( rightRotate( test, 8 ) == 0x89134567U );
+    assert( rightRotate( test, 19 ) == 0xACF12268U );
+
 }

@@ -53,11 +53,69 @@ char *displayBinary( unsigned int value ) {
     return output;
 }
 
+/*
+ * @param unsigned int value: the value we want to bit rotate
+ * @param std::size_t: the amount of times we rotate the value
+ * 
+ * This takes the value passed in and rotates the bits to the left
+ * by a certain amount as indicated by 'n'. Returns the new value.
+ */
 unsigned int leftRotate( unsigned int value, std::size_t n ) {
-    return 0;
+    if( value == 0x0U ) {
+        return value;
+    }
+
+    if( n == 0 ) {
+        return value;
+    } else {
+        while( n > 32 ) {
+            n -= 32;
+        }
+    }
+
+    unsigned int mask{1};
+    mask <<= 31;
+
+    for( std::size_t i{0}; i < n; ++i ) {
+        unsigned bit{value & mask};
+        bit >>= 31;
+
+        value <<= 1;
+        value ^= bit;
+    }
+
+    return value;
 }
 
+/*
+ * @param unsigned int value: the value we want to bit rotate
+ * @param std::size_t: the amount of times we rotate the value
+ * 
+ * This takes the value passed in and rotates the bits to the right
+ * by a certain amount as indicated by 'n'. Returns the new value.
+ */
 unsigned int rightRotate( unsigned int value, std::size_t n ) {
+    if( value == 0x0 ) {
+        return value;
+    }
 
-    return 0;
+    if( n == 0 ) {
+        return value;
+    } else {
+        while( n > 32 ) {
+            n -= 32;
+        }
+    }
+
+    unsigned int mask{1};
+
+    for( std::size_t i{0}; i < n; ++i ) {
+        unsigned bit{value & mask};
+        bit <<= 31;
+
+        value >>= 1;
+        value ^= bit;
+    }
+    
+    return value;
 }
