@@ -25,6 +25,16 @@ char *displayBinary( unsigned int value);
 unsigned int leftRotate( unsigned int value, std::size_t n );
 unsigned int rightRotate( unsigned int vlaue, std::size_t n );
 
+/* 
+ * @param unsigned int value
+ * 
+ * Stores the value as a character array of 1s and 0s
+ * Goes from MSB on the left to LSB on the right
+ * 
+ * Returns a dynamically allocated character array containing
+ * the binary in character format of the value passed into this
+ * funciton.
+ */
 char *displayBinary( unsigned int value ) {
     char *output{ new char[32]{} };
 
@@ -40,13 +50,10 @@ char *displayBinary( unsigned int value ) {
         }
         n++;
     }
-    
     return output;
 }
 
-
 unsigned int leftRotate( unsigned int value, std::size_t n ) {
-
     return 0;
 }
 

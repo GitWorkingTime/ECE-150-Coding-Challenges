@@ -10,7 +10,8 @@
 
 int main();
 void testDisplayBinary();
-
+void testLeftRotate();
+void testRightRotate();
 
 int main() {
     testDisplayBinary();
@@ -619,4 +620,12 @@ void testDisplayBinary() {
     char* output100 = displayBinary(test100);
     for (std::size_t i{}; i < 32; i++) assert(output100[i] == expected_100[i]);
     delete output100; output100 = nullptr;
+}
+
+void testLeftRotate() {
+
+}
+
+void testRightrotate() {
+    
 }
